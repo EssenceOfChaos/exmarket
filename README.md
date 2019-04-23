@@ -2,7 +2,7 @@
 
 # Exmarket
 
-An OTP application that provides real time **stock** & **crypto** data.
+An OTP application that provides real time **stock** & **crypto** data. This project is a _WIP_ under active development.
 
 ## Installation
 
@@ -17,6 +17,4 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/exmarket](https://hexdocs.pm/exmarket).
+The docs can be found at [https://hexdocs.pm/exmarket](https://hexdocs.pm/exmarket).

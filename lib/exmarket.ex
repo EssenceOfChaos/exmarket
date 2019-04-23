@@ -6,7 +6,7 @@ defmodule Exmarket do
   """
 
   @doc """
-  get_price(stock)
+  Takes the stock symbol (ticker) as input and returns the real-time value of the stock.
 
   ## Examples
 
@@ -14,10 +14,11 @@ defmodule Exmarket do
       "204.53"
 
   """
+
   defdelegate get_price(symbol), to: StockService
 
   @doc """
-  get_state()
+  Returns the current state of the GenServer. Previous calls to `get_price(stock)` are cached and returned as a map.
 
   ## Examples
 
@@ -25,5 +26,6 @@ defmodule Exmarket do
       %{"aapl" => 204.53}
 
   """
+
   defdelegate get_state(), to: StockService
 end
