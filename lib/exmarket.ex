@@ -23,9 +23,18 @@ defmodule Exmarket do
   ## Examples
 
       iex> Exmarket.get_state()
-      %{"aapl" => 204.53}
+      %{}
 
   """
 
   defdelegate get_state(), to: StockService
+
+  @doc """
+    Resets the current state held in the GenServer back to an empty map
+    ## Examples
+
+      iex> Exmarket.reset_state()
+      :ok
+  """
+  defdelegate reset_state(), to: StockService
 end
