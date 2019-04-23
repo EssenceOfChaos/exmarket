@@ -14,7 +14,7 @@ by adding `exmarket` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:exmarket, "~> 0.1.0"}
+    {:exmarket, "~> 0.1.1"}
   ]
 end
 ```
