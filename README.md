@@ -1,7 +1,8 @@
 [![CircleCI](https://circleci.com/gh/EssenceOfChaos/exmarket/tree/master.svg?style=svg)](https://circleci.com/gh/EssenceOfChaos/exmarket/tree/master)
 ![License](https://img.shields.io/github/license/essenceofchaos/exmarket.svg)
+
 # Exmarket
-![exmarket icon](https://i.imgur.com/ZOh8k4rs.png)
+
 
 An OTP application that provides real time **stock** & **crypto** data. This project is a _WIP_ under active development.
 
