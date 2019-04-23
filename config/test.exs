@@ -1,3 +1,4 @@
+# Configuration for development
 use Mix.Config
-
-config :exmarket, environment: :test
+# Set env variable
+config :exmarket, :env, :test

@@ -26,6 +26,8 @@ defmodule Exmarket.MixProject do
   defp deps do
     [
       ## App Dependencies ##
+      {:httpoison, "~> 1.5"},
+      {:jason, "~> 1.1.2"},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false}
     ]

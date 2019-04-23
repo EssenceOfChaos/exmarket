@@ -2,14 +2,14 @@ defmodule Exmarket.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
-
+  alias Exmarket.Api.StockService
   use Application
 
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: Exmarket.Worker.start_link(arg)
-      # {Exmarket.Worker, arg}
+      {StockService, %{}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
