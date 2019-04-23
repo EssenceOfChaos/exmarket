@@ -10,7 +10,22 @@ defmodule Exmarket.MixProject do
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      ## Docs ##
+      name: "ExMarket",
+      source_url: "https://github.com/EssenceOfChaos/exmarket",
+      homepage_url: "",
+      # The main page in the docs
+      docs: [main: "ExMarket", logo: "assets/images/market-icon.png", extras: ["README.md"]]
+    ]
+  end
+
+  def package do
+    [
+      name: :exmarket,
+      maintainers: ["Frederick John"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/EssenceOfChaos/exmarket"}
     ]
   end
 

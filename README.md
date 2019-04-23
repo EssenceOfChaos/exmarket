@@ -1,3 +1,5 @@
+![License](https://img.shields.io/github/license/essenceofchaos/exmarket.svg)
+
 # Exmarket
 
 An OTP application that provides real time **stock** & **crypto** data.
