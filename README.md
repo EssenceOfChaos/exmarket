@@ -7,7 +7,7 @@ An OTP application that provides real time **stock** & **crypto** data. This pro
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+Package is [available in Hex](https://hex.pm/packages/exmarket), and can be installed
 by adding `exmarket` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -19,3 +19,18 @@ end
 ```
 
 The docs can be found at [https://hexdocs.pm/exmarket](https://hexdocs.pm/exmarket).
+
+After adding `{:exmarket, "~> 0.1.0"}` to your list of dependencies, access the API either by creating a unique alias or referring to `Exmarket` directly. For example:
+
+```elixir
+defmodule MyApp do
+  alias Exmarket, as: Market
+
+  def get_price(ticker) do
+    Market.get_price(ticker)
+  end
+
+end
+```
+
+Calling `MyApp.get_price("aapl")` returns `"204.53"`.
