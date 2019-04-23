@@ -12,7 +12,6 @@ defmodule Exmarket.MixProject do
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases(),
       description: description(),
       package: package(),
       ## Docs ##
@@ -20,7 +19,7 @@ defmodule Exmarket.MixProject do
       source_url: "https://github.com/EssenceOfChaos/exmarket",
       homepage_url: "",
       # The main page in the docs
-      docs: [main: "ExMarket", logo: "assets/images/market-icon.png", extras: ["README.md"]]
+      docs: [main: "Exmarket", logo: "assets/images/market-icon.png", extras: ["README.md"]]
     ]
   end
 
@@ -52,19 +51,10 @@ defmodule Exmarket.MixProject do
     ]
   end
 
-  defp aliases do
-    [
-      clean: [&clean_test_fixtures/1, "clean"],
-      build: ["deps.get"],
-      setup: []
-    ]
-  end
 
   defp description() do
     "ExMarket is a Hex Package designed to provide a clean interface for retrieving real-time stock and crypto data."
   end
 
-  defp clean_test_fixtures(_args) do
-    File.rm_rf("test/tmp")
-  end
+
 end

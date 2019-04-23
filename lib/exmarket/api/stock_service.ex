@@ -3,11 +3,9 @@ defmodule Exmarket.Api.StockService do
     Defines the Exmarket API for retreiving stock data
   """
   use GenServer, restart: :transient
-  # @url "https://api.iextrading.com/1.0/stock/{SYMBOL}/price"
   # @full_url "https://cloud.iexapis.com/beta/stock/aapl/price?token=pk_40c6c71966a445cca7038a5445fd54a0"
   @base "https://cloud.iexapis.com/"
   @version "beta"
-  # @base_url "https://cloud.iexapis.com/stable/tops?token=pk_40c6c71966a445cca7038a5445fd54a0&symbols={SYM}"
   @sector_path "stock/market/sector-performance"
   @price "/stock/{symbol}/price"
   @pk "?token=pk_40c6c71966a445cca7038a5445fd54a0"
@@ -27,30 +25,9 @@ defmodule Exmarket.Api.StockService do
     "142.19"
 
   """
+
   def get_price(stock) do
     GenServer.call(__MODULE__, {:stock, stock})
-  end
-
-  def batch_quote(stocks) do
-    stocks
-    |> Enum.each(fn stock ->
-      GenServer.call(__MODULE__, {:stock, stock})
-    end)
-
-    GenServer.call(__MODULE__, :get_state)
-  end
-
-  def sectorPerformance() do
-    case HTTPoison.get(@base <> @version <> @sector_path <> @pk) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        process_response_body(body)
-
-      {:ok, %HTTPoison.Response{status_code: 404}} ->
-        IO.puts("Not found :(")
-
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.inspect(reason)
-    end
   end
 
   @doc """
@@ -154,8 +131,4 @@ defmodule Exmarket.Api.StockService do
     end
   end
 
-  defp process_response_body(body) do
-    body
-    |> Jason.decode!()
-  end
 end

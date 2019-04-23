@@ -3,7 +3,7 @@ defmodule Exmarket.Api.StockServiceTest do
   Test module for the StockService GenServer
   """
   use ExUnit.Case
-  doctest Exmarket
+  # doctest Exmarket
 
   def reset_state(_context) do
     Exmarket.reset_state()

@@ -23,7 +23,7 @@ defmodule Exmarket do
   ## Examples
 
       iex> Exmarket.get_state()
-      %{}
+      %{"aapl" => 207.48, "fb" => 183.78, "mfst" => 0.065, "tsla" => 263.9}
 
   """
 
@@ -37,4 +37,21 @@ defmodule Exmarket do
       :ok
   """
   defdelegate reset_state(), to: StockService
+
+    @doc """
+    Takes a variable list of stock symbols and returns a map with the symbols and prices.
+
+    ## Examples
+
+      iex> Exmarket.batch_quote(["aapl", "tsla"])
+      %{"aapl" => 207.48, "tsla" => 263.9}
+    """
+  def batch_quote([]), do: StockService.get_state()
+
+  def batch_quote([head | tail]) when is_binary(head) do
+    StockService.get_price(head)
+    batch_quote(tail)
+  end
+
+
 end
