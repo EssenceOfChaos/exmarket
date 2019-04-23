@@ -1,4 +1,5 @@
 ![License](https://img.shields.io/github/license/essenceofchaos/exmarket.svg)
+[![CircleCI](https://circleci.com/gh/EssenceOfChaos/exmarket/tree/master.svg?style=svg)](https://circleci.com/gh/EssenceOfChaos/exmarket/tree/master)
 
 # Exmarket
 
