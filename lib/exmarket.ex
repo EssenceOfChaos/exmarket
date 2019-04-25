@@ -1,5 +1,6 @@
 defmodule Exmarket do
   alias Exmarket.Api.StockService
+  alias Exmarket.Api.CryptoService
 
   @moduledoc """
   Documentation for Exmarket.
@@ -38,14 +39,14 @@ defmodule Exmarket do
   """
   defdelegate reset_state(), to: StockService
 
-    @doc """
-    Takes a variable list of stock symbols and returns a map with the symbols and prices.
+  @doc """
+  Takes a variable list of stock symbols and returns a map with the symbols and prices.
 
-    ## Examples
+  ## Examples
 
-      iex> Exmarket.batch_quote(["aapl", "tsla"])
-      %{"aapl" => 207.48, "tsla" => 263.9}
-    """
+    iex> Exmarket.batch_quote(["aapl", "tsla"])
+    %{"aapl" => 207.48, "tsla" => 263.9}
+  """
   def batch_quote([]), do: StockService.get_state()
 
   def batch_quote([head | tail]) when is_binary(head) do
@@ -53,5 +54,14 @@ defmodule Exmarket do
     batch_quote(tail)
   end
 
+  ###### Crypto Functions ######
+  @doc """
+  Returns the USD value of a crypto currency asset
 
+  ## Examples
+
+    iex> Exmarket.get_quote("btc")
+    "5460.97"
+  """
+  defdelegate get_quote(pair), to: CryptoService
 end

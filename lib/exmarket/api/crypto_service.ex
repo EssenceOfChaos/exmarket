@@ -1,58 +1,27 @@
-defmodule Exmarket.Api.StockService do
+defmodule Exmarket.Api.CryptoService do
   @moduledoc """
-    Defines the Exmarket API for retreiving stock data
+    Defines the Exmarket API for retreiving cryptocurrency data
   """
   use GenServer, restart: :transient
+  require Logger
 
-  # @full_url "https://cloud.iexapis.com/beta/stock/aapl/price?token=pk_40c6c71966a445cca7038a5445fd54a0"
-  @base "https://cloud.iexapis.com/"
-  @version "stable"
-  # @sector_path "stock/market/sector-performance"
-  @price "/stock/{symbol}/price"
-  @pk "?token=pk_40c6c71966a445cca7038a5445fd54a0"
-  ## ------------------------------------------------- ##
-  ##                   Client API                      ##
-  ## ------------------------------------------------- ##
+  @coin_api "?apikey=E47DBBF4-5FF7-4BCD-A221-DA2CA6A075EA"
+  @coin_base "https://rest.coinapi.io/"
+  @version "v1"
+  @quote "/exchangerate/{BTC}/USD"
+
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
-  @doc """
-    Gets the price of the stock passed as an arguement. Returns a String
-
-    ## Examples
-
-    iex> StockService.get_price(pid, "aapl")
-    "142.19"
-
-  """
-
-  def get_price(stock) do
-    GenServer.call(__MODULE__, {:stock, stock})
+  def get_quote(asset) do
+    GenServer.call(__MODULE__, {:asset, asset})
   end
 
-  @doc """
-    Gets the current state of the StockService. Returns a Map
-
-    ## Examples
-
-    iex> StockService.get_state(pid)
-    %{"aapl" => 148.26}
-
-  """
   def get_state() do
     GenServer.call(__MODULE__, :get_state)
   end
 
-  @doc """
-    Resets the state of the StockService to an empty map. Returns :ok
-
-    ## Examples
-
-    iex> StockService.get_state(pid)
-    %{"aapl" => 148.26}
-
-  """
   def reset_state() do
     GenServer.cast(__MODULE__, :reset_state)
   end
@@ -69,10 +38,10 @@ defmodule Exmarket.Api.StockService do
     {:ok, opts}
   end
 
-  def handle_call({:stock, stock}, _from, state) do
-    case price_of(stock) do
+  def handle_call({:asset, asset}, _from, state) do
+    case quote_of(asset) do
       {:ok, price} ->
-        new_state = update_state(state, stock, price)
+        new_state = update_state(state, asset, price)
         {:reply, "#{price}", new_state}
 
       _ ->
@@ -111,24 +80,31 @@ defmodule Exmarket.Api.StockService do
   ##                   Helper Functions                ##
   ## ------------------------------------------------- ##
 
-  defp price_of(stock) do
-    uri = String.replace(@price, "{symbol}", stock)
-
-    case HTTPoison.get(@base <> @version <> uri <> @pk) do
-      {:ok, %{status_code: 200, body: body}} -> Jason.decode(body)
+  defp quote_of(asset) do
+    uri = String.replace(@quote, "{BTC}", String.upcase(asset))
+    # IO.inspect(@coin_base <> @version <> uri <> @coin_api)
+    case HTTPoison.get(@coin_base <> @version <> uri <> @coin_api) do
+      {:ok, %{status_code: 200, body: body}} -> process_response(Jason.decode!(body))
       # 404 Not Found Error
       {:ok, %{status_code: 404}} -> "Not found"
       {:error, %HTTPoison.Error{reason: reason}} -> IO.inspect(reason)
     end
   end
 
-  defp update_state(old_state, stock, price) do
-    case Map.has_key?(old_state, stock) do
+  defp process_response(%{"rate" => rate}) when is_float(rate) do
+    IO.inspect(rate)
+    Logger.info("REACHED THIS FAR")
+
+    {:ok, Float.round(rate, 2)}
+  end
+
+  defp update_state(old_state, pair, price) do
+    case Map.has_key?(old_state, pair) do
       true ->
-        Map.update!(old_state, stock, price)
+        Map.update!(old_state, pair, price)
 
       false ->
-        Map.put_new(old_state, stock, price)
+        Map.put_new(old_state, pair, price)
     end
   end
 end

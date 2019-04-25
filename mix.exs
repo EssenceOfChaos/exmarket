@@ -3,7 +3,7 @@ defmodule Exmarket.MixProject do
   Application entry point and dependency management
   """
   use Mix.Project
-  @version "0.1.1"
+  @version "0.2.0"
 
   def project do
     [
@@ -51,10 +51,7 @@ defmodule Exmarket.MixProject do
     ]
   end
 
-
   defp description() do
     "ExMarket is a Hex Package designed to provide a clean interface for retrieving real-time stock and crypto data."
   end
-
-
 end
