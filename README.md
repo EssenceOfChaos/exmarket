@@ -53,7 +53,8 @@ Exmarket now supports batch quotes! Simply pass a list of strings for the stock 
   "aapl" => 207.16,
   "fb" => 182.58,
   "msft" => 125.01,
-  "tsla" => 258.66}
+  "tsla" => 258.66
+  }
 ```
 
 ---
